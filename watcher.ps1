@@ -44,16 +44,23 @@ while ($loop) {
             
             # Execute each command
             foreach ($cmd in $json.commands) {
+                # Determine the endpoint based on command type
+                $endpoint = $SERVICE_URL
+                if ($cmd.type -eq "operation") {
+                    $endpoint = $endpoint -replace "/execute-primitive", "/execute-operation"
+                }
+                
                 $body = $cmd | ConvertTo-Json -Compress
                 
                 try {
-                    $response = Invoke-WebRequest -Uri $SERVICE_URL `
+                    $response = Invoke-WebRequest -Uri $endpoint `
                         -Method POST `
                         -Headers @{"Content-Type"="application/json"} `
                         -Body $body `
                         -TimeoutSec 10
                     
-                    Write-Host "  ✓ Executed: $($cmd.primitive)"
+                    $cmdName = if ($cmd.primitive) { $cmd.primitive } else { $cmd.operation }
+                    Write-Host "  ✓ Executed: $cmdName"
                 } catch {
                     Write-Host "  ✗ Error: $($_.Exception.Message)"
                 }
