@@ -1,0 +1,29 @@
+{
+  "id": "cmd-1774216582323-1",
+  "timestamp": "2026-03-22T21:56:22.323Z",
+  "text": "Move mouse to 960,100 and click, then type Sade",
+  "commands": [
+    {
+      "type": "primitive",
+      "primitive": "mouse.move",
+      "params": {
+        "x": 960,
+        "y": 100
+      }
+    },
+    {
+      "type": "primitive",
+      "primitive": "mouse.click",
+      "params": {
+        "button": "left"
+      }
+    },
+    {
+      "type": "primitive",
+      "primitive": "keyboard.type",
+      "params": {
+        "text": "Sade"
+      }
+    }
+  ]
+}
