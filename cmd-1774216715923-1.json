@@ -1,0 +1,14 @@
+{
+  "id": "cmd-1774216715923-1",
+  "timestamp": "2026-03-22T21:58:35.923Z",
+  "text": "Open Spotify",
+  "commands": [
+    {
+      "type": "operation",
+      "operation": "app.launch",
+      "params": {
+        "appPath": "spotify.exe"
+      }
+    }
+  ]
+}

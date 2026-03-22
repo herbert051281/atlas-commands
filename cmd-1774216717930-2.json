@@ -1,0 +1,51 @@
+{
+  "id": "cmd-1774216717930-2",
+  "timestamp": "2026-03-22T21:58:37.930Z",
+  "text": "Move mouse to 960,100 and click, type Sade, wait 2000, move mouse to 960,250 and click",
+  "commands": [
+    {
+      "type": "primitive",
+      "primitive": "mouse.move",
+      "params": {
+        "x": 960,
+        "y": 100
+      }
+    },
+    {
+      "type": "primitive",
+      "primitive": "mouse.click",
+      "params": {
+        "button": "left"
+      }
+    },
+    {
+      "type": "primitive",
+      "primitive": "keyboard.type",
+      "params": {
+        "text": "Sade"
+      }
+    },
+    {
+      "type": "primitive",
+      "action": "wait",
+      "params": {
+        "ms": 2000000
+      }
+    },
+    {
+      "type": "primitive",
+      "primitive": "mouse.move",
+      "params": {
+        "x": 960,
+        "y": 250
+      }
+    },
+    {
+      "type": "primitive",
+      "primitive": "mouse.click",
+      "params": {
+        "button": "left"
+      }
+    }
+  ]
+}
