@@ -1,0 +1,14 @@
+{
+  "id": "cmd-1774215948337-1",
+  "timestamp": "2026-03-22T21:45:48.337Z",
+  "text": "Open Notepad",
+  "commands": [
+    {
+      "type": "operation",
+      "operation": "app.launch",
+      "params": {
+        "appPath": "notepad.exe"
+      }
+    }
+  ]
+}
