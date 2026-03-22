@@ -3,14 +3,16 @@
 
 # Configuration
 $REPO_PATH = "C:\atlas-commands"
-$SERVICE_URL = "http://127.0.0.1:9999/execute-primitive"
+$PRIMITIVE_URL = "http://127.0.0.1:9999/execute-primitive"
+$OPERATION_URL = "http://127.0.0.1:9999/execute-operation"
 $POLL_INTERVAL = 5
 
 Write-Host ""
 Write-Host "========================================"
 Write-Host "Atlas Command Watcher Started"
 Write-Host "Polling every $POLL_INTERVAL seconds"
-Write-Host "Service: $SERVICE_URL"
+Write-Host "Primitive: $PRIMITIVE_URL"
+Write-Host "Operation: $OPERATION_URL"
 Write-Host "========================================"
 Write-Host ""
 
@@ -44,25 +46,30 @@ while ($loop) {
             
             # Execute each command
             foreach ($cmd in $json.commands) {
-                # Determine the endpoint based on command type
-                $endpoint = $SERVICE_URL
+                # Choose endpoint based on command type
+                $url = $PRIMITIVE_URL
                 if ($cmd.type -eq "operation") {
-                    $endpoint = $endpoint -replace "/execute-primitive", "/execute-operation"
+                    $url = $OPERATION_URL
                 }
                 
-                $body = $cmd | ConvertTo-Json -Compress
+                Write-Host "  Sending to: $url"
+                Write-Host "  Command: $($cmd | ConvertTo-Json -Compress)"
                 
                 try {
-                    $response = Invoke-WebRequest -Uri $endpoint `
+                    # Send the command object as-is
+                    $body = $cmd | ConvertTo-Json -Compress
+                    Write-Host "  Body: $body"
+                    
+                    $response = Invoke-WebRequest -Uri $url `
                         -Method POST `
                         -Headers @{"Content-Type"="application/json"} `
                         -Body $body `
                         -TimeoutSec 10
                     
-                    $cmdName = if ($cmd.primitive) { $cmd.primitive } else { $cmd.operation }
-                    Write-Host "  ✓ Executed: $cmdName"
+                    Write-Host "  ✓ Response: $($response.StatusCode)"
                 } catch {
                     Write-Host "  ✗ Error: $($_.Exception.Message)"
+                    Write-Host "  Full error: $_"
                 }
             }
             
